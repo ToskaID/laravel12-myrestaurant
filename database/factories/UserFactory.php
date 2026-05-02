@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'role_id' => fake()->numberBetween(1, 3), // Assuming you have 3 roles in your roles table
         ];
-    }
+    } 
 
     /**
      * Indicate that the model's email address should be unverified.

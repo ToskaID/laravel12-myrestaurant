@@ -13,12 +13,12 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        //query builder
         $categories = [
-            ['cat_name' => 'Makanan', 'description' => 'Kategori Makanan'],
-            ['cat_name' => 'Minuman', 'description' => 'Kategori Minuman'],
+            ['cat_name' => 'Makanan', 'description' => 'Kategori Makanan','created_at' => now(), 'updated_at' => now()],
+            ['cat_name' => 'Minuman', 'description' => 'Kategori Minuman','created_at' => now(), 'updated_at' => now()],
 
         ];
-
         DB::table('categories')->insert($categories);
     }
 }
