@@ -22,14 +22,9 @@ class MenuController extends Controller
         return view('customer.menu', compact('items', 'tableNumber'));
     }
 
-    //mengambil card data item  dari session waktu user mengklik tambah keranjang 
-    public function cart()
-    {
-        $cart = Session::get('cart');
-        return view('customer.cart', compact('cart'));
-    }
-
-    public function addToCart(Request $request)
+    
+    //fungsi menambahkan menuItem ke cart dan menyimpan data ke session
+     public function addToCart(Request $request)
     {
         //Mengambil ID produk yang dikirim dari tombol "Tambah Keranjang" di frontend.
         $menuId = $request->input('id');
@@ -49,9 +44,7 @@ class MenuController extends Controller
         //jika ya jangan buat item baru. Cukup ambil item yang sudah ada, 
         //lalu tambah jumlahnya (quantity) sebanyak 1.
         //jika tidak maka buat entry baru di keranjang dengan data lengkap
-
-        //Ambil data lama, jika belum ada, buat array kosong
-        $cart = Session::get('cart', []);
+        $cart = Session::get('cart',[]);
     
         if(isset($cart[$menuId])){
             $cart[$menuId]['quantity'] += 1;
@@ -73,4 +66,7 @@ class MenuController extends Controller
             'cart' => $cart
         ]);
     }
+
+
+    
 }
