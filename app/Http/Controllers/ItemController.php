@@ -33,7 +33,36 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_active' => 'required|boolean',
+        ],
+        [
+            'name.required' => 'Nama item wajib diisi.',
+            'description.string' => 'Deskripsi item harus berupa teks.',
+            'price.required' => 'Harga item wajib diisi.',
+            'category_id.required' => 'Kategori item wajib dipilih.',
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'is_active.required' => 'Status item wajib dipilih.',
+        ]);
+
+        //handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('img_item_upload'), $imageName);
+            $validatedData['image'] = $imageName;
+           
+        }
+
+        Item::create($validatedData);
+
+        return redirect()->route('items.index')->with('success', 'Item created successfully.');
     }
 
     /**
@@ -49,7 +78,11 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = Item::findOrFail($id);
+        $categories = Category::orderBy('cat_name', 'asc')->get();
+
+        // Return the view to edit the item
+        return view('admin.item.edit', compact('item', 'categories'));
     }
 
     /**
@@ -57,7 +90,39 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $item = Item::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_active' => 'required|boolean',
+        ],
+        [
+            'name.required' => 'Nama item wajib diisi.',
+            'description.string' => 'Deskripsi item harus berupa teks.',
+            'price.required' => 'Harga item wajib diisi.',
+            'category_id.required' => 'Kategori item wajib dipilih.',
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'is_active.required' => 'Status item wajib dipilih.',
+        ]);
+
+        //handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('img_item_upload'), $imageName);
+            $validatedData['image'] = $imageName;
+           
+        }
+        
+
+        $item->update($validatedData);
+
+        return redirect()->route('items.index')->with('success', 'Item updated successfully.');
     }
 
     /**
@@ -65,7 +130,10 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Item::findOrFail($id);
+        $item->delete();
+        
+        return redirect()->route('items.index')->with('success', 'Item deleted successfully.');
     }
 
        public function updateStatus($id)

@@ -68,8 +68,20 @@
                                 <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
+
+                                <form action="{{route('items.destroy',$item->id)}}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin menghapus menu ini?')">
+                                        <i class="bi bi-trash">
+                                            Hapus
+                                        </i>
+                                    </button>
+                                </form>
                             </td>
-                            <td>
+
+                            <!-- start aksi aktif non aktif menu -->
+                            <!-- <td>
                                 @if ($item->is_active == 1)
                                     <form action="{{ route('items.updateStatus', $item->id) }}" method="POST">
                                         @csrf
@@ -87,7 +99,8 @@
                                         </button>
                                     </form>
                                 @endif
-                            </td>
+                            </td> -->
+                            <!-- end aksi aktif non aktif menu -->
                         </tr>
 
                         @endforeach
