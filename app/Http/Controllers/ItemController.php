@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Category;
 
-class ItemController extends Controller
+class ItemController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class ItemController extends Controller
         $categories = Category::orderBy('cat_name', 'asc')->get();
 
         // Return the view to create a new item
-        return view('admin.item.create', compact('categories'));
+        return view('admin.item.create', compact('categories')); 
     }
 
     /**

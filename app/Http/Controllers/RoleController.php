@@ -21,7 +21,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.role.create');
     }
 
     /**
@@ -29,7 +29,13 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $request->validate([
+            'role_name' => 'required|string|max:20',
+            'description' => 'required|string|max:100'
+        ]);
+
+        Role::create($request->all());
+        return redirect()->route('roles.index')->with('success', 'Role created successfully.');
     }
 
     /**
@@ -37,7 +43,8 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
+       
     }
 
     /**
@@ -45,7 +52,9 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $role=Role::findOrFail($id);
+        return view('admin.role.edit',compact('role'));
+        
     }
 
     /**
@@ -53,7 +62,15 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+           $role=Role::findOrFail($id);
+
+            $request->validate([
+            'role_name' => 'required|string|max:20',
+            'description' => 'required|string|max:100'
+        ]);
+
+        $role->update($request->all());
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
     /**
@@ -61,6 +78,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->delete();
+        
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');
     }
 }
