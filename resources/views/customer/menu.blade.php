@@ -25,11 +25,11 @@
                                     </div>
                                     <div class="text-white bg-secondary px-3 py-1 rounded position-absolute
                                         @if ($item->category->cat_name == 'Makanan')
-                                            bg-warning
+                                            bg-danger
                                         @elseif ($item->category->cat_name == 'Minuman')
                                             bg-info
                                         @else
-                                            bg-primary
+                                            bg-warning
                                         @endif" style="top: 10px; left: 10px;">
                                             {{ $item->category->cat_name }}
                                     </div>

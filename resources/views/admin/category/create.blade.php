@@ -28,7 +28,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="name">Nama Category</label>
-                            <input type="text" class="form-control" id="name" placeholder="Masukkan Nama Category" name="cat_name" required>
+                            <input type="text" class="form-control" id="name" placeholder="Masukkan Nama Category" name="cat_name" required> 
                         </div>
 
                         <div class="form-group">

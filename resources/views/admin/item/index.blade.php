@@ -55,7 +55,7 @@
                             <td>{{ Str::limit($item->description,15) }}</td>
                             <td>{{ 'Rp'. number_format($item->price, 0, ',','.') }}</td>
                             <td>
-                                <span class="badge {{ $item->category->cat_name == 'Makanan' ? 'bg-warning' : 'bg-info' }}">
+                                <span class="badge {{ $item->category->cat_name == 'Makanan' ? 'bg-warning' : ($item->category->cat_name == 'Minuman' ? 'bg-info' : 'bg-secondary') }}" >
                                     {{ $item->category->cat_name }}
                                 </span>
                             </td>
@@ -64,21 +64,41 @@
                                     {{ $item->is_active == 1 ? 'Aktif' : 'Tidak Aktif' }}
                                 </span>
                             </td>
-                            <td>
+                            <td class="d-flex align-items-center gap-1">
                                 <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Ubah
                                 </a>
 
-                                <form action="{{route('items.destroy',$item->id)}}" method="POST" class="d-inline">
+                                <!--start Button Hapus -->
+                                <!-- <form action="{{route('items.destroy',$item->id)}}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin menghapus menu ini?')">
-                                        <i class="bi bi-trash">
-                                            Hapus
-                                        </i>
+                                        <i class="bi bi-trash"></i>Hapus
                                     </button>
-                                </form>
+                                </form> -->
+                                <!-- end Button hapus -->
+                                 @if ($item->is_active == 1)
+                                    <form action="{{ route('items.updateStatus', $item->id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_active" value="0">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menonaktifkan menu ini?')">
+                                            <i class="bi bi-x"></i> Nonaktifkan
+                                        </button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('items.updateStatus', $item->id) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="is_active" value="1">
+                                        <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Apakah anda yakin ingin mengaktifkan menu ini?')">
+                                            <i class="bi bi-check"></i> Aktifkan
+                                        </button>
+                                    </form>
+                                @endif
+                                
+
                             </td>
+                            
 
                             <!-- start aksi aktif non aktif menu -->
                             <!-- <td>

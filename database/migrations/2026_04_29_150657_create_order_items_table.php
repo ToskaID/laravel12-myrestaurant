@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->integer('quantity');
             $table->integer('price');
-            $table->integer('tax');
             $table->integer('total_price');
             $table->softDeletes();
             $table->timestamps();
