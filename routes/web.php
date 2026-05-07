@@ -34,7 +34,6 @@ Route::get('/dashboard', function(){
 })->name('dashboard');
 
 Route::resource('/categories', CategoryController::class);
-
 Route::resource('/roles', RoleController::class);
 Route::resource('/orders', OrderController::class);
 Route::resource('/users', UserController::class);
