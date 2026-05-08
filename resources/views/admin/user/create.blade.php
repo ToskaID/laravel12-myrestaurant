@@ -28,30 +28,30 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="fullname">FullName</label>
-                            <input type="text" class="form-control" id="fullname" value="{{ old('fullname')}}" placeholder="Masukkan fullname" name="fullname" required>
+                            <input type="text" class="form-control" id="fullname" value="{{old('fullname')}}" placeholder="Masukkan fullname" name="fullname" required>
                         </div>
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" value="{{ old('username')}}" placeholder="Masukkan username" name="username" required>
+                            <input type="text" class="form-control" id="username" autocomplete="off" value="{{old('username')}}" placeholder="Masukkan username" name="username" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" value="{{ old('password')}}" placeholder="password minimal 8 karakter" name="password" required>
+                            <input type="password" class="form-control" id="password" autocomplete="new-password" value="" placeholder="password minimal 8 karakter" name="password" required>
                             <small><a href="#" class="toggle-password" data-target="password">Lihat Password</a></small>
                         </div>
                          <div class="form-group">
                             <label for="password_confirmation">Konfirmasi Password</label>
-                            <input type="password" class="form-control" id="password_confirmation" value="{{ old('password_confirmation')}}" placeholder="konfirmasi password" name="password_confirmation" required>
+                            <input type="password" class="form-control" id="password_confirmation" value="" placeholder="konfirmasi password" name="password_confirmation" required>
                             <small><a href="#" class="toggle-password" data-target="password_confirmation">Lihat Password</a></small>
                         </div>
                        
                         <div class="form-group">
                             <label for="name">Email</label>
-                            <input type="email" class="form-control" id="name" value="{{ old('email')}}" placeholder="Masukkan email" name="email" required>
+                            <input type="email" class="form-control" id="name" value="{{old('email')}}" placeholder="Masukkan email" name="email" required>
                         </div>
                         <div class="form-group">
                             <label for="name">Phone</label>
-                            <input type="text" class="form-control" id="name" value="{{ old('phone')}}" placeholder="Masukkan No HandPhone" name="phone" required>
+                            <input type="text" class="form-control" id="name" value="{{old('phone')}}" placeholder="Masukkan No HandPhone" name="phone" required>
                         </div>
                         <div class="form-group">
                             <label for="name">Role</label>

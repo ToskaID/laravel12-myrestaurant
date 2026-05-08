@@ -57,12 +57,33 @@
                             <td>{{ $order->payment_method }}</td>
                             <td>{{ $order->note ?? '-' }}</td>
                             <td>{{ $order->created_at->format('d-m-y H:i') }}</td>
-                            <td>
-                                <span class="badge bg-primary">
-                                    <a href="{{ route('orders.show', $order->id) }}" class="text-white">
-                                        <i class="bi bi-eye"></i> Lihat
-                                    </a>
-                                </span>
+                            <td class="d-flex align-items-center gap-1">
+                                <a href="{{ route('orders.show', $order->id) }}" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-eye"></i> Lihat
+                                </a>
+
+                                <!-- role admin & cashier -->
+                                @if(Auth::user()->role->role_name == 'admin' || Auth::user()->role->role_name == 'cashier')
+                                    @if($order->status == 'pending' && $order->payment_method == 'cash')
+                                        <form action="{{route('orders.updateStatus',$order->id)}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="order_id">
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <i class="bi bi-check-circle"></i>bayar
+                                            </button>
+                                        </form>
+                                    @endif
+
+                                <!-- role admin dan chef -->
+                                @elseif(Auth::user()->role->role_name == 'chef' && $order->status == 'settlement') 
+                                    <form action="{{route('orders.updateStatus',$order->id)}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="order_id">
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="bi bi-check-circle"></i>pesanan siap
+                                        </button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
