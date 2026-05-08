@@ -62,7 +62,8 @@
                         <span>Daftar Menu</span>
                     </a>
                 </li>
-            
+
+                @if(Auth::user()->role->role_name == 'admin')
                 <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                     <a href="{{ route('users.index') }}" class='sidebar-link'>
                         <i class="bi bi-people-fill"></i>
@@ -82,6 +83,7 @@
                         <span>Manajemen Kategori</span>
                     </a>
                 </li>
+                @endif
 
                 <li class="sidebar-item">
                     <form method="POST" action="{{route('logout')}}"  onclick="event.preventDefault(); this.closest('form').submit();">
